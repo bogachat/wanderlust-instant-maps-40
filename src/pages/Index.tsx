@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { MapPin, Navigation, Clock, Route } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
+import PhoneVerification from "@/components/PhoneVerification";
 import LocationPermission from "@/components/LocationPermission";
 import RouteMap from "@/components/RouteMap";
 import RouteDetails from "@/components/RouteDetails";

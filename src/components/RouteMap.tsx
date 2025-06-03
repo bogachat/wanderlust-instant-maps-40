@@ -89,7 +89,9 @@ const RouteMap: React.FC<RouteMapProps> = ({ routeInfo }) => {
                 strokeLinecap="round"
                 strokeDasharray="300"
                 strokeDashoffset="300"
-                className="animate-[dash_2s_ease-in-out_forwards]"
+                style={{
+                  animation: 'dash 2s ease-in-out forwards'
+                }}
               />
             </svg>
           </div>
@@ -124,13 +126,15 @@ const RouteMap: React.FC<RouteMapProps> = ({ routeInfo }) => {
         </p>
       </CardContent>
       
-      <style jsx>{`
-        @keyframes dash {
-          to {
-            stroke-dashoffset: 0;
+      <style>
+        {`
+          @keyframes dash {
+            to {
+              stroke-dashoffset: 0;
+            }
           }
-        }
-      `}</style>
+        `}
+      </style>
     </Card>
   );
 };
