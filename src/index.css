@@ -311,33 +311,65 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
-    z-index: -1;
+    z-index: -10;
     overflow: hidden;
   }
 
-  .matrix-rain::before {
-    content: '01001001 01001110 01010100 01000101 01001100 01001100 01001001 01000111 01000101 01001110 01000011 01000101 01000001 01000011 01000011 01000101 01010011 01010011 01001001 01001110 01000111 01000111 01001100 01001111 01000010 01000001 01001100 01001110 01000001 01010110 01001001 01000111 01000001 01010100 01001001 01001111 01001110';
+  .matrix-column {
     position: absolute;
-    top: -100px;
-    left: 0;
-    width: 100%;
-    height: calc(100% + 200px);
-    color: rgba(0, 255, 41, 0.15);
     font-family: 'Fira Code', monospace;
-    font-size: 10px;
-    line-height: 14px;
-    white-space: pre-wrap;
-    animation: matrix-fall 8s linear infinite;
+    font-size: 14px;
+    color: rgba(0, 255, 65, 0.8);
+    text-shadow: 0 0 8px rgba(0, 255, 65, 0.8);
+    line-height: 1.2;
+    white-space: pre;
+    animation: matrix-fall linear infinite;
   }
 
+  .matrix-column:nth-child(1) { left: 2%; animation-duration: 8s; animation-delay: 0s; }
+  .matrix-column:nth-child(2) { left: 6%; animation-duration: 12s; animation-delay: 1s; }
+  .matrix-column:nth-child(3) { left: 10%; animation-duration: 6s; animation-delay: 0.5s; }
+  .matrix-column:nth-child(4) { left: 14%; animation-duration: 15s; animation-delay: 2s; }
+  .matrix-column:nth-child(5) { left: 18%; animation-duration: 9s; animation-delay: 0.3s; }
+  .matrix-column:nth-child(6) { left: 22%; animation-duration: 11s; animation-delay: 1.5s; }
+  .matrix-column:nth-child(7) { left: 26%; animation-duration: 7s; animation-delay: 0.8s; }
+  .matrix-column:nth-child(8) { left: 30%; animation-duration: 13s; animation-delay: 2.5s; }
+  .matrix-column:nth-child(9) { left: 34%; animation-duration: 10s; animation-delay: 0.2s; }
+  .matrix-column:nth-child(10) { left: 38%; animation-duration: 8s; animation-delay: 1.8s; }
+  .matrix-column:nth-child(11) { left: 42%; animation-duration: 14s; animation-delay: 0.7s; }
+  .matrix-column:nth-child(12) { left: 46%; animation-duration: 6s; animation-delay: 2.2s; }
+  .matrix-column:nth-child(13) { left: 50%; animation-duration: 12s; animation-delay: 0.4s; }
+  .matrix-column:nth-child(14) { left: 54%; animation-duration: 9s; animation-delay: 1.3s; }
+  .matrix-column:nth-child(15) { left: 58%; animation-duration: 11s; animation-delay: 0.9s; }
+  .matrix-column:nth-child(16) { left: 62%; animation-duration: 7s; animation-delay: 2.8s; }
+  .matrix-column:nth-child(17) { left: 66%; animation-duration: 13s; animation-delay: 0.1s; }
+  .matrix-column:nth-child(18) { left: 70%; animation-duration: 8s; animation-delay: 1.7s; }
+  .matrix-column:nth-child(19) { left: 74%; animation-duration: 10s; animation-delay: 0.6s; }
+  .matrix-column:nth-child(20) { left: 78%; animation-duration: 15s; animation-delay: 2.3s; }
+  .matrix-column:nth-child(21) { left: 82%; animation-duration: 9s; animation-delay: 0.8s; }
+  .matrix-column:nth-child(22) { left: 86%; animation-duration: 12s; animation-delay: 1.9s; }
+  .matrix-column:nth-child(23) { left: 90%; animation-duration: 6s; animation-delay: 0.3s; }
+  .matrix-column:nth-child(24) { left: 94%; animation-duration: 11s; animation-delay: 2.1s; }
+  .matrix-column:nth-child(25) { left: 98%; animation-duration: 8s; animation-delay: 1.2s; }
+
   @keyframes matrix-fall {
-    0% { transform: translateY(-100%); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(100%); opacity: 0; }
+    0% { 
+      transform: translateY(-100vh); 
+      opacity: 0;
+    }
+    10% { 
+      opacity: 1;
+    }
+    90% { 
+      opacity: 1;
+    }
+    100% { 
+      transform: translateY(100vh); 
+      opacity: 0;
+    }
   }
 
   .scan-lines {

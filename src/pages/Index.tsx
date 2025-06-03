@@ -1,4 +1,3 @@
-
 import React, { useState, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +7,7 @@ import PhoneVerification from "@/components/PhoneVerification";
 import LocationPermission from "@/components/LocationPermission";
 import RouteMap from "@/components/RouteMap";
 import RouteDetails from "@/components/RouteDetails";
+import MatrixRain from "@/components/MatrixRain";
 
 interface Location {
   lat: number;
@@ -115,7 +115,7 @@ const Index = () => {
   return (
     <div className="min-h-screen relative">
       {/* Matrix Rain Background */}
-      <div className="matrix-rain"></div>
+      <MatrixRain />
       
       {/* Scan Lines Effect */}
       <div className="scan-lines"></div>
