@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Navigation } from "lucide-react";
+import { ExternalLink, Navigation, Terminal, Zap } from "lucide-react";
 
 interface Location {
   lat: number;
@@ -27,102 +27,128 @@ const RouteMap: React.FC<RouteMapProps> = ({ routeInfo }) => {
     return `https://www.google.com/maps/dir/${origin.lat},${origin.lng}/${destination.lat},${destination.lng}`;
   };
 
-  const generateEmbedUrl = () => {
-    const { origin, destination } = routeInfo;
-    const center = {
-      lat: (origin.lat + destination.lat) / 2,
-      lng: (origin.lng + destination.lng) / 2
-    };
-    
-    return `https://www.google.com/maps/embed/v1/directions?key=YOUR_API_KEY&origin=${origin.lat},${origin.lng}&destination=${destination.lat},${destination.lng}&center=${center.lat},${center.lng}&zoom=12`;
-  };
-
   const openInGoogleMaps = () => {
     const url = generateGoogleMapsUrl();
     window.open(url, '_blank');
   };
 
   return (
-    <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+    <Card className="hologram hacker-border bg-card/90 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="text-xl text-gray-800 flex items-center gap-2">
-          <Navigation className="h-5 w-5 text-blue-600" />
-          Your Route Map
+        <CardTitle className="text-xl text-neon-green font-orbitron flex items-center gap-2">
+          <Terminal className="h-5 w-5 text-neon-green animate-pulse" />
+          CYBER NAVIGATION MATRIX
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
-        {/* Static Map Placeholder */}
-        <div className="relative h-64 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg overflow-hidden">
+        {/* Cyber Map Visualization */}
+        <div className="relative h-64 bg-black/80 rounded-lg overflow-hidden hacker-border">
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center text-gray-600">
-              <Navigation className="h-16 w-16 mx-auto mb-4 text-blue-600" />
-              <p className="font-semibold">Interactive Route Map</p>
-              <p className="text-sm">From: {routeInfo.origin.lat.toFixed(4)}, {routeInfo.origin.lng.toFixed(4)}</p>
-              <p className="text-sm">To: {routeInfo.destination.lat.toFixed(4)}, {routeInfo.destination.lng.toFixed(4)}</p>
+            <div className="text-center text-neon-green">
+              <Terminal className="h-16 w-16 mx-auto mb-4 text-neon-green animate-pulse-neon" />
+              <p className="font-orbitron font-semibold text-lg">NEURAL PATHWAY ACTIVE</p>
+              <p className="text-sm font-fira text-neon-blue">
+                ORIGIN: [{routeInfo.origin.lat.toFixed(6)}, {routeInfo.origin.lng.toFixed(6)}]
+              </p>
+              <p className="text-sm font-fira text-neon-blue">
+                TARGET: [{routeInfo.destination.lat.toFixed(6)}, {routeInfo.destination.lng.toFixed(6)}]
+              </p>
             </div>
           </div>
           
-          {/* Route visualization overlay */}
+          {/* Cyber Route Visualization */}
           <div className="absolute inset-0">
             <svg className="w-full h-full" viewBox="0 0 300 200">
               <defs>
-                <linearGradient id="routeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#3B82F6" />
-                  <stop offset="100%" stopColor="#8B5CF6" />
+                <linearGradient id="cyberRouteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="rgb(0, 255, 65)" />
+                  <stop offset="50%" stopColor="rgb(0, 200, 255)" />
+                  <stop offset="100%" stopColor="rgb(150, 0, 255)" />
                 </linearGradient>
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                  <feMerge> 
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
               </defs>
               
-              {/* Start point */}
-              <circle cx="50" cy="100" r="8" fill="#10B981" />
-              <text x="50" y="125" textAnchor="middle" fontSize="12" fill="#10B981" fontWeight="bold">START</text>
+              {/* Grid Pattern */}
+              <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(0, 255, 65, 0.2)" strokeWidth="0.5"/>
+              </pattern>
+              <rect width="100%" height="100%" fill="url(#grid)" />
               
-              {/* End point */}
-              <circle cx="250" cy="80" r="8" fill="#EF4444" />
-              <text x="250" y="105" textAnchor="middle" fontSize="12" fill="#EF4444" fontWeight="bold">END</text>
+              {/* Start Node */}
+              <g>
+                <circle cx="50" cy="100" r="12" fill="rgb(0, 255, 65)" filter="url(#glow)" />
+                <circle cx="50" cy="100" r="8" fill="rgb(0, 100, 35)" />
+                <text x="50" y="130" textAnchor="middle" fontSize="10" fill="rgb(0, 255, 65)" fontFamily="Fira Code" fontWeight="bold">
+                  ORIGIN
+                </text>
+              </g>
               
-              {/* Route path */}
+              {/* End Node */}
+              <g>
+                <circle cx="250" cy="80" r="12" fill="rgb(255, 25, 25)" filter="url(#glow)" />
+                <circle cx="250" cy="80" r="8" fill="rgb(100, 0, 0)" />
+                <text x="250" y="110" textAnchor="middle" fontSize="10" fill="rgb(255, 25, 25)" fontFamily="Fira Code" fontWeight="bold">
+                  TARGET
+                </text>
+              </g>
+              
+              {/* Cyber Route Path */}
               <path
                 d="M 50 100 Q 100 60 150 90 Q 200 120 250 80"
-                stroke="url(#routeGradient)"
+                stroke="url(#cyberRouteGradient)"
                 strokeWidth="4"
                 fill="none"
                 strokeLinecap="round"
+                filter="url(#glow)"
                 strokeDasharray="300"
                 strokeDashoffset="300"
                 style={{
                   animation: 'dash 2s ease-in-out forwards'
                 }}
               />
+              
+              {/* Data Packets */}
+              <circle r="3" fill="rgb(0, 255, 65)" filter="url(#glow)">
+                <animateMotion dur="3s" repeatCount="indefinite">
+                  <mpath href="#routePath"/>
+                </animateMotion>
+              </circle>
             </svg>
           </div>
         </div>
         
-        {/* Route Summary */}
-        <div className="bg-gray-50 rounded-lg p-4">
+        {/* Route Data Panel */}
+        <div className="bg-black/60 rounded-lg p-4 hacker-border">
           <div className="grid grid-cols-2 gap-4 text-center">
-            <div>
-              <p className="text-2xl font-bold text-blue-600">{routeInfo.distance}</p>
-              <p className="text-sm text-gray-600">Distance</p>
+            <div className="hacker-border p-3 bg-neon-green/5">
+              <p className="text-2xl font-orbitron font-bold text-neon-green">{routeInfo.distance}</p>
+              <p className="text-sm text-neon-blue font-fira">DISTANCE</p>
             </div>
-            <div>
-              <p className="text-2xl font-bold text-purple-600">{routeInfo.duration}</p>
-              <p className="text-sm text-gray-600">Est. Duration</p>
+            <div className="hacker-border p-3 bg-neon-blue/5">
+              <p className="text-2xl font-orbitron font-bold text-neon-blue">{routeInfo.duration}</p>
+              <p className="text-sm text-neon-blue font-fira">ETA</p>
             </div>
           </div>
         </div>
         
-        {/* Open in Maps Button */}
+        {/* Deploy Navigation Protocol Button */}
         <Button 
           onClick={openInGoogleMaps}
-          className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          className="w-full cyber-button font-orbitron font-bold tracking-wider"
           size="lg"
         >
           <ExternalLink className="h-5 w-5 mr-2" />
-          Open Route in Google Maps
+          DEPLOY NAVIGATION PROTOCOL
         </Button>
         
-        <p className="text-xs text-gray-500 text-center">
-          Click the button above to open the full interactive route in Google Maps
+        <p className="text-xs text-neon-blue text-center font-fira">
+          >> EXECUTE COMMAND TO LAUNCH EXTERNAL NAVIGATION INTERFACE &lt;&lt;
         </p>
       </CardContent>
       

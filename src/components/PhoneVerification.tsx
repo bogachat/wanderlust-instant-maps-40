@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Phone, Shield, CheckCircle } from "lucide-react";
+import { Phone, Shield, CheckCircle, Terminal, Zap } from "lucide-react";
 import { toast } from "@/hooks/use-toast";
 
 interface PhoneVerificationProps {
@@ -18,7 +18,6 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
   const [isSendingCode, setIsSendingCode] = useState(false);
 
   const validatePhoneNumber = (phone: string) => {
-    // Basic phone number validation (international format)
     const phoneRegex = /^[\+]?[1-9][\d]{0,15}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
   };
@@ -26,8 +25,8 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
   const sendVerificationCode = async () => {
     if (!validatePhoneNumber(phoneNumber)) {
       toast({
-        title: "Invalid Phone Number",
-        description: "Please enter a valid phone number.",
+        title: "INVALID PHONE MATRIX",
+        description: "Enter a valid communication frequency.",
         variant: "destructive"
       });
       return;
@@ -36,18 +35,17 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
     setIsSendingCode(true);
     
     try {
-      // Simulate API call to send verification code
       await new Promise(resolve => setTimeout(resolve, 2000));
       
       setIsCodeSent(true);
       toast({
-        title: "Verification Code Sent",
-        description: `Code sent to ${phoneNumber}`,
+        title: "VERIFICATION CODE TRANSMITTED",
+        description: `Cipher sent to communication node: ${phoneNumber}`,
       });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to send verification code. Please try again.",
+        title: "TRANSMISSION ERROR",
+        description: "Failed to send verification cipher. Retry transmission.",
         variant: "destructive"
       });
     } finally {
@@ -58,8 +56,8 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
   const verifyCode = async () => {
     if (verificationCode.length !== 6) {
       toast({
-        title: "Invalid Code",
-        description: "Please enter the 6-digit verification code.",
+        title: "INVALID CIPHER LENGTH",
+        description: "Enter the 6-digit verification cipher.",
         variant: "destructive"
       });
       return;
@@ -68,23 +66,21 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
     setIsVerifying(true);
     
     try {
-      // Simulate API call to verify code
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // For demo purposes, accept any 6-digit code
       if (verificationCode.length === 6) {
         toast({
-          title: "Phone Verified Successfully!",
-          description: "You can now proceed to location access.",
+          title: "COMMUNICATION NODE VERIFIED!",
+          description: "Access granted. Proceeding to location matrix initialization.",
         });
         onVerificationComplete();
       } else {
-        throw new Error("Invalid code");
+        throw new Error("Invalid cipher");
       }
     } catch (error) {
       toast({
-        title: "Verification Failed",
-        description: "Invalid verification code. Please try again.",
+        title: "VERIFICATION FAILED",
+        description: "Invalid cipher sequence. Re-enter authentication code.",
         variant: "destructive"
       });
     } finally {
@@ -93,25 +89,25 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
   };
 
   return (
-    <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+    <Card className="hologram hacker-border bg-card/90 backdrop-blur-sm">
       <CardHeader className="text-center">
         <div className="flex justify-center mb-4">
-          <div className="relative">
-            <Phone className="h-12 w-12 text-blue-600" />
+          <div className="relative hacker-glow rounded-full p-3">
+            <Terminal className="h-12 w-12 text-neon-green" />
             {isCodeSent && (
-              <div className="absolute -top-2 -right-2 h-6 w-6 bg-green-500 rounded-full flex items-center justify-center">
-                <CheckCircle className="h-4 w-4 text-white" />
+              <div className="absolute -top-2 -right-2 h-6 w-6 bg-neon-green rounded-full flex items-center justify-center animate-pulse-neon">
+                <CheckCircle className="h-4 w-4 text-black" />
               </div>
             )}
           </div>
         </div>
-        <CardTitle className="text-2xl text-gray-800">
-          Phone Verification Required
+        <CardTitle className="text-2xl text-neon-green font-orbitron">
+          COMMUNICATION VERIFICATION REQUIRED
         </CardTitle>
-        <p className="text-gray-600">
+        <p className="text-neon-blue font-fira">
           {!isCodeSent 
-            ? "Please verify your phone number to access route generation features."
-            : "Enter the 6-digit verification code sent to your phone."
+            ? ">> ESTABLISH SECURE COMMUNICATION CHANNEL TO ACCESS ROUTE MATRIX <<"
+            : ">> ENTER 6-DIGIT AUTHENTICATION CIPHER TRANSMITTED TO YOUR DEVICE <<"
           }
         </p>
       </CardHeader>
@@ -119,8 +115,8 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
         {!isCodeSent ? (
           <>
             <div className="space-y-2">
-              <label htmlFor="phone" className="text-sm font-medium text-gray-700">
-                Phone Number
+              <label htmlFor="phone" className="text-sm font-orbitron font-medium text-neon-green">
+                COMMUNICATION FREQUENCY
               </label>
               <Input
                 id="phone"
@@ -128,7 +124,7 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
                 placeholder="+1234567890"
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
-                className="text-center text-lg"
+                className="text-center text-lg hacker-border bg-black/50 text-neon-green font-fira placeholder-neon-green/50"
               />
             </div>
             
@@ -136,17 +132,17 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
               onClick={sendVerificationCode}
               disabled={isSendingCode || !phoneNumber}
               size="lg"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full cyber-button font-orbitron font-bold tracking-wider"
             >
               {isSendingCode ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2" />
-                  Sending Code...
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-neon-green border-t-transparent mr-2" />
+                  TRANSMITTING CIPHER...
                 </>
               ) : (
                 <>
-                  <Shield className="h-5 w-5 mr-2" />
-                  Send Verification Code
+                  <Zap className="h-5 w-5 mr-2" />
+                  SEND VERIFICATION CIPHER
                 </>
               )}
             </Button>
@@ -154,8 +150,8 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
         ) : (
           <>
             <div className="space-y-2">
-              <label htmlFor="code" className="text-sm font-medium text-gray-700">
-                Verification Code
+              <label htmlFor="code" className="text-sm font-orbitron font-medium text-neon-green">
+                AUTHENTICATION CIPHER
               </label>
               <Input
                 id="code"
@@ -163,7 +159,7 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
                 placeholder="000000"
                 value={verificationCode}
                 onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                className="text-center text-lg tracking-widest"
+                className="text-center text-lg tracking-widest hacker-border bg-black/50 text-neon-green font-fira placeholder-neon-green/50"
                 maxLength={6}
               />
             </div>
@@ -172,17 +168,17 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
               onClick={verifyCode}
               disabled={isVerifying || verificationCode.length !== 6}
               size="lg"
-              className="w-full bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full cyber-button font-orbitron font-bold tracking-wider"
             >
               {isVerifying ? (
                 <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent mr-2" />
-                  Verifying...
+                  <div className="animate-spin rounded-full h-5 w-5 border-2 border-neon-green border-t-transparent mr-2" />
+                  VERIFYING CIPHER...
                 </>
               ) : (
                 <>
                   <CheckCircle className="h-5 w-5 mr-2" />
-                  Verify Code
+                  AUTHENTICATE CIPHER
                 </>
               )}
             </Button>
@@ -193,15 +189,15 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
                 setVerificationCode('');
               }}
               variant="outline"
-              className="w-full"
+              className="w-full hacker-border bg-transparent text-neon-blue hover:bg-neon-blue/10 font-orbitron"
             >
-              Change Phone Number
+              CHANGE COMMUNICATION NODE
             </Button>
           </>
         )}
         
-        <div className="text-xs text-gray-500 text-center">
-          <p>Your phone number is used for verification purposes only and is not stored or shared.</p>
+        <div className="text-xs text-neon-blue/70 text-center font-fira">
+          <p>>> COMMUNICATION FREQUENCY USED FOR VERIFICATION ONLY - NOT STORED IN SYSTEM DATABASE &lt;&lt;</p>
         </div>
       </CardContent>
     </Card>
