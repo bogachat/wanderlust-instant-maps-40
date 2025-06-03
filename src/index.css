@@ -54,13 +54,47 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Fira Code', monospace;
-    background: radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 200, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 25, 25, 0.02) 0%, transparent 50%),
-                linear-gradient(135deg, rgb(8, 8, 16) 0%, rgb(12, 12, 24) 100%);
+    background: 
+      /* Animated matrix rain effect */
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 98px,
+        rgba(0, 255, 41, 0.03) 100px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 98px,
+        rgba(0, 255, 41, 0.03) 100px
+      ),
+      /* Moving diagonal lines */
+      linear-gradient(
+        45deg,
+        rgba(0, 255, 41, 0.02) 0px,
+        transparent 2px,
+        transparent 40px,
+        rgba(0, 255, 41, 0.02) 42px
+      ),
+      /* Dark gradient background */
+      radial-gradient(circle at 20% 80%, rgba(0, 255, 65, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(0, 200, 255, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(255, 25, 25, 0.03) 0%, transparent 50%),
+      /* Base dark gradient */
+      linear-gradient(135deg, #0a0a0f 0%, #0f0f1e 25%, #1a1a2e 50%, #16213e 75%, #0f0f23 100%);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+    animation: matrixBackground 20s ease-in-out infinite;
+  }
+
+  @keyframes matrixBackground {
+    0%, 100% { 
+      background-position: 0% 0%, 0% 0%, 0% 0%, 20% 80%, 80% 20%, 40% 40%;
+    }
+    50% { 
+      background-position: 100% 100%, 100% 100%, 100% 100%, 40% 60%, 60% 40%, 60% 60%;
+    }
   }
 
   body::before {
@@ -71,11 +105,51 @@
     width: 100%;
     height: 100%;
     background-image: 
-      linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+      /* Circuit pattern */
+      radial-gradient(circle at 25% 25%, rgba(0, 255, 41, 0.1) 1px, transparent 1px),
+      radial-gradient(circle at 75% 75%, rgba(0, 200, 255, 0.08) 1px, transparent 1px),
+      /* Grid lines */
+      linear-gradient(rgba(0, 255, 41, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 41, 0.05) 1px, transparent 1px);
+    background-size: 
+      200px 200px,
+      150px 150px,
+      25px 25px,
+      25px 25px;
     pointer-events: none;
     z-index: -1;
+    animation: gridMove 30s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%; }
+    100% { background-position: 200px 200px, 150px 150px, 25px 25px, 25px 25px; }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      /* Scan lines */
+      repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 2px,
+        rgba(0, 255, 41, 0.02) 2px,
+        rgba(0, 255, 41, 0.02) 4px
+      );
+    pointer-events: none;
+    z-index: -1;
+    animation: scanLines 2s linear infinite;
+  }
+
+  @keyframes scanLines {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -86,13 +160,17 @@
 
 @layer components {
   .hacker-glow {
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3),
-                inset 0 0 10px rgba(0, 255, 65, 0.1);
+    box-shadow: 
+      0 0 10px rgba(0, 255, 65, 0.4),
+      0 0 20px rgba(0, 255, 65, 0.2),
+      0 0 30px rgba(0, 255, 65, 0.1),
+      inset 0 0 10px rgba(0, 255, 65, 0.1);
   }
 
   .hacker-border {
-    border: 1px solid rgba(0, 255, 65, 0.5);
+    border: 1px solid rgba(0, 255, 65, 0.6);
     position: relative;
+    background: linear-gradient(145deg, rgba(0, 255, 65, 0.03), rgba(0, 200, 255, 0.02));
   }
 
   .hacker-border::before {
@@ -104,7 +182,9 @@
     bottom: -1px;
     background: linear-gradient(45deg, 
       rgba(0, 255, 65, 0.8) 0%, 
-      rgba(0, 200, 255, 0.8) 50%, 
+      rgba(0, 200, 255, 0.6) 25%,
+      rgba(150, 0, 255, 0.4) 50%,
+      rgba(0, 200, 255, 0.6) 75%,
       rgba(0, 255, 65, 0.8) 100%);
     border-radius: inherit;
     z-index: -1;
@@ -114,16 +194,25 @@
 
   .hacker-border:hover::before {
     opacity: 1;
+    animation: borderGlow 1.5s ease-in-out infinite;
+  }
+
+  @keyframes borderGlow {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
   }
 
   .matrix-text {
     color: rgb(0, 255, 65);
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+    text-shadow: 
+      0 0 5px rgba(0, 255, 65, 0.8),
+      0 0 10px rgba(0, 255, 65, 0.6),
+      0 0 15px rgba(0, 255, 65, 0.4);
   }
 
   .cyber-button {
-    background: linear-gradient(145deg, rgba(0, 255, 65, 0.1), rgba(0, 200, 255, 0.1));
-    border: 1px solid rgba(0, 255, 65, 0.5);
+    background: linear-gradient(145deg, rgba(0, 255, 65, 0.15), rgba(0, 200, 255, 0.1));
+    border: 1px solid rgba(0, 255, 65, 0.6);
     color: rgb(0, 255, 65);
     text-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
     transition: all 0.3s ease;
@@ -140,7 +229,7 @@
     height: 100%;
     background: linear-gradient(90deg, 
       transparent, 
-      rgba(0, 255, 65, 0.2), 
+      rgba(0, 255, 65, 0.3), 
       transparent);
     transition: left 0.5s ease;
   }
@@ -150,43 +239,21 @@
   }
 
   .cyber-button:hover {
-    box-shadow: 0 0 20px rgba(0, 255, 65, 0.4),
-                inset 0 0 20px rgba(0, 255, 65, 0.1);
+    box-shadow: 
+      0 0 20px rgba(0, 255, 65, 0.5),
+      0 0 40px rgba(0, 255, 65, 0.3),
+      inset 0 0 20px rgba(0, 255, 65, 0.1);
     transform: translateY(-2px);
-  }
-
-  .scan-lines {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .scan-lines::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0px,
-      transparent 2px,
-      rgba(0, 255, 65, 0.05) 2px,
-      rgba(0, 255, 65, 0.05) 4px
-    );
-    pointer-events: none;
-    animation: scan 2s linear infinite;
-  }
-
-  @keyframes scan {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100vh); }
+    border-color: rgba(0, 255, 65, 1);
   }
 
   .glitch-text {
     position: relative;
     color: rgb(0, 255, 65);
-    text-shadow: 0 0 10px rgba(0, 255, 65, 0.8);
+    text-shadow: 
+      0 0 10px rgba(0, 255, 65, 0.8),
+      2px 2px 0px rgba(0, 200, 255, 0.4),
+      -2px -2px 0px rgba(255, 25, 25, 0.4);
   }
 
   .glitch-text::before,
@@ -252,32 +319,59 @@
   }
 
   .matrix-rain::before {
-    content: '01001001 01001110 01010100 01000101 01001100 01001100 01001001 01000111 01000101 01001110 01000011 01000101';
+    content: '01001001 01001110 01010100 01000101 01001100 01001100 01001001 01000111 01000101 01001110 01000011 01000101 01000001 01000011 01000011 01000101 01010011 01010011 01001001 01001110 01000111 01000111 01001100 01001111 01000010 01000001 01001100 01001110 01000001 01010110 01001001 01000111 01000001 01010100 01001001 01001111 01001110';
     position: absolute;
     top: -100px;
     left: 0;
     width: 100%;
     height: calc(100% + 200px);
-    color: rgba(0, 255, 65, 0.1);
+    color: rgba(0, 255, 41, 0.15);
     font-family: 'Fira Code', monospace;
-    font-size: 12px;
-    line-height: 20px;
+    font-size: 10px;
+    line-height: 14px;
     white-space: pre-wrap;
-    animation: matrix-fall 10s linear infinite;
+    animation: matrix-fall 8s linear infinite;
   }
 
   @keyframes matrix-fall {
-    0% { transform: translateY(-100%); }
-    100% { transform: translateY(100%); }
+    0% { transform: translateY(-100%); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100%); opacity: 0; }
+  }
+
+  .scan-lines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 2px,
+      rgba(0, 255, 41, 0.03) 2px,
+      rgba(0, 255, 41, 0.03) 4px
+    );
+    animation: scan 3s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
   }
 
   .hologram {
     background: linear-gradient(145deg, 
-      rgba(0, 255, 65, 0.1), 
-      rgba(0, 200, 255, 0.1));
-    border: 1px solid rgba(0, 255, 65, 0.3);
+      rgba(0, 255, 65, 0.08), 
+      rgba(0, 200, 255, 0.06),
+      rgba(16, 16, 40, 0.9));
+    border: 1px solid rgba(0, 255, 65, 0.4);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
   }
 
   .hologram::before {
@@ -289,13 +383,14 @@
     bottom: 0;
     background: linear-gradient(45deg, 
       transparent 30%, 
-      rgba(0, 255, 65, 0.1) 50%, 
+      rgba(0, 255, 65, 0.08) 45%,
+      rgba(0, 200, 255, 0.06) 55%,
       transparent 70%);
-    animation: hologram-sweep 3s ease-in-out infinite;
+    animation: hologram-sweep 4s ease-in-out infinite;
   }
 
   @keyframes hologram-sweep {
-    0%, 100% { transform: translateX(-100%) skewX(-15deg); }
-    50% { transform: translateX(100%) skewX(-15deg); }
+    0%, 100% { transform: translateX(-100%) skewX(-15deg); opacity: 0; }
+    50% { transform: translateX(100%) skewX(-15deg); opacity: 1; }
   }
 }

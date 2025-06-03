@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -135,9 +136,9 @@ const Index = () => {
               CYBER ROUTE MATRIX
             </h1>
             <p className="text-xl text-neon-blue max-w-3xl mx-auto mb-8 font-fira">
-              >> ACCESSING GLOBAL NAVIGATION GRID... <span className="terminal-cursor"></span><br/>
-              >> NEURAL PATHWAY GENERATOR ONLINE<br/>
-              >> INFILTRATE. EXPLORE. NAVIGATE.
+              &gt;&gt; ACCESSING GLOBAL NAVIGATION GRID... <span className="terminal-cursor"></span><br/>
+              &gt;&gt; NEURAL PATHWAY GENERATOR ONLINE<br/>
+              &gt;&gt; INFILTRATE. EXPLORE. NAVIGATE.
             </p>
           </div>
         </div>
@@ -198,8 +199,8 @@ const Index = () => {
                     <Navigation className="h-16 w-16 mx-auto mb-4 opacity-50 animate-pulse" />
                     <p className="text-lg font-orbitron">
                       {!permissionGranted 
-                        ? ">> AWAITING GPS MATRIX ACCESS <<" 
-                        : ">> INITIALIZE ROUTE GENERATION <<"
+                        ? "&gt;&gt; AWAITING GPS MATRIX ACCESS &lt;&lt;" 
+                        : "&gt;&gt; INITIALIZE ROUTE GENERATION &lt;&lt;"
                       }
                     </p>
                     <div className="mt-2 text-sm text-neon-blue font-fira">

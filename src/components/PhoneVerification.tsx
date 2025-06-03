@@ -106,8 +106,8 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
         </CardTitle>
         <p className="text-neon-blue font-fira">
           {!isCodeSent 
-            ? ">> ESTABLISH SECURE COMMUNICATION CHANNEL TO ACCESS ROUTE MATRIX <<"
-            : ">> ENTER 6-DIGIT AUTHENTICATION CIPHER TRANSMITTED TO YOUR DEVICE <<"
+            ? "&gt;&gt; ESTABLISH SECURE COMMUNICATION CHANNEL TO ACCESS ROUTE MATRIX &lt;&lt;"
+            : "&gt;&gt; ENTER 6-DIGIT AUTHENTICATION CIPHER TRANSMITTED TO YOUR DEVICE &lt;&lt;"
           }
         </p>
       </CardHeader>
@@ -197,7 +197,7 @@ const PhoneVerification: React.FC<PhoneVerificationProps> = ({ onVerificationCom
         )}
         
         <div className="text-xs text-neon-blue/70 text-center font-fira">
-          <p>>> COMMUNICATION FREQUENCY USED FOR VERIFICATION ONLY - NOT STORED IN SYSTEM DATABASE &lt;&lt;</p>
+          <p>&gt;&gt; COMMUNICATION FREQUENCY USED FOR VERIFICATION ONLY - NOT STORED IN SYSTEM DATABASE &lt;&lt;</p>
         </div>
       </CardContent>
     </Card>

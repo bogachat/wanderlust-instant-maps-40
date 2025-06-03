@@ -148,7 +148,7 @@ const RouteMap: React.FC<RouteMapProps> = ({ routeInfo }) => {
         </Button>
         
         <p className="text-xs text-neon-blue text-center font-fira">
-          >> EXECUTE COMMAND TO LAUNCH EXTERNAL NAVIGATION INTERFACE &lt;&lt;
+          &gt;&gt; EXECUTE COMMAND TO LAUNCH EXTERNAL NAVIGATION INTERFACE &lt;&lt;
         </p>
       </CardContent>
       
